@@ -2,7 +2,11 @@
   "name": "docker-dashboard",
   "version": "0.1.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "start": "node server.js"
+  },
   "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.16.3"
+  }
 }
