@@ -7,6 +7,8 @@
     "start-dev": "concurrently \"nodemon server.js\" \"webpack --watch\""
   },
   "devDependencies": {
+    "@types/classnames": "^2.2.3",
+    "@types/lodash": "^4.14.109",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",
     "concurrently": "^3.5.1",
@@ -19,6 +21,8 @@
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "classnames": "^2.2.5",
+    "express": "^4.16.3",
+    "lodash": "^4.17.10"
   }
 }
