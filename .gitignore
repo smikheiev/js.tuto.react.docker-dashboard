@@ -1,6 +1,9 @@
 # dependencies
 /node_modules
 
+# build
+/public/js/bundle.js*
+
 # IDE
 /.idea
 
