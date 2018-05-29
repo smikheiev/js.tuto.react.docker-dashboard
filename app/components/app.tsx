@@ -2,6 +2,9 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { IContainerProps } from './containerListItem'
 import { ContainerList } from './containerList'
+import * as io from 'socket.io-client'
+
+const socket = io.connect()
 
 interface IAppState {
   runningContainers?: IContainerProps[]
@@ -9,32 +12,39 @@ interface IAppState {
 }
 
 export class AppComponent extends React.Component<{}, IAppState> {
-  fakeContainers: IContainerProps[] = [
-    {
-      id: '1',
-      name: 'test container 1',
-      image: 'test image 1',
-      state: 'running',
-      status: 'Running'
-    },
-    {
-      id: '2',
-      name: 'test container 2',
-      image: 'test image 2',
-      state: 'stopped',
-      status: 'Running'
-    }
-  ]
-
   constructor () {
     super({})
 
-    const partitionedContainers = _.partition(this.fakeContainers, c => c.state === 'running')
-
     this.state = {
-      runningContainers: partitionedContainers[0],
-      stoppedContainers: partitionedContainers[1]
+      runningContainers: [],
+      stoppedContainers: []
     }
+
+    socket.on('containers.list', (containers: any) => {
+      const partitioned = _.partition(containers, (c: any) => c.State === 'running')
+      this.setState({
+        runningContainers: partitioned[0].map(this.mapContainer),
+        stoppedContainers: partitioned[1].map(this.mapContainer)
+      })
+    })
+  }
+
+  mapContainer (container: any): IContainerProps {
+    console.log(container)
+    return {
+      id: container.Id,
+      name: _.chain(container.Names)
+        .map((n: string) => n.substr(1))
+        .join(', ')
+        .value(),
+      image: container.Image,
+      state: container.State,
+      status: `${container.State} ${container.Status}`
+    }
+  }
+
+  componentDidMount () {
+    socket.emit('containers.list')
   }
 
   render () {

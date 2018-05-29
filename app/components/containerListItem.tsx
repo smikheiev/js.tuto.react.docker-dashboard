@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
 
-export class IContainerProps {
+export interface IContainerProps {
   id: string
   name: string
   image: string
