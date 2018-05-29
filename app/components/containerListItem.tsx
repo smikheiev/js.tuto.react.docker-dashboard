@@ -16,7 +16,11 @@ export class ContainerListItem extends React.Component<IContainerProps, {}> {
   }
 
   onActionButtonClick () {
-    socket.emit('container.start', {id: this.props.id})
+    if (this.isRunning()) {
+      socket.emit('container.stop', {id: this.props.id})
+    } else {
+      socket.emit('container.start', {id: this.props.id})
+    }
   }
 
   render () {
