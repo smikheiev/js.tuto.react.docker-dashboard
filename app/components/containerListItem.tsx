@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as classNames from 'classnames'
+import socket from '../socket'
 
 export interface IContainerProps {
   id: string
@@ -12,6 +13,10 @@ export interface IContainerProps {
 export class ContainerListItem extends React.Component<IContainerProps, {}> {
   isRunning () {
     return this.props.state === 'running'
+  }
+
+  onActionButtonClick () {
+    socket.emit('container.start', {id: this.props.id})
   }
 
   render () {
@@ -28,7 +33,9 @@ export class ContainerListItem extends React.Component<IContainerProps, {}> {
             Image: {this.props.image}
           </div>
           <div className='panel-footer'>
-            <button className='btn btn-default'>{buttonText}</button>
+            <button className='btn btn-default' onClick={() => this.onActionButtonClick()}>
+              {buttonText}
+            </button>
           </div>
         </div>
       </div>

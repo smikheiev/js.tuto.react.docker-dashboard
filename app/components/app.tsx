@@ -2,9 +2,7 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { IContainerProps } from './containerListItem'
 import { ContainerList } from './containerList'
-import * as io from 'socket.io-client'
-
-const socket = io.connect()
+import socket from '../socket'
 
 interface IAppState {
   runningContainers?: IContainerProps[]
