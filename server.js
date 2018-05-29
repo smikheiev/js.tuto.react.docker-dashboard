@@ -50,3 +50,5 @@ const refreshContainers = () => {
     io.emit('containers.list', containers)
   })
 }
+
+setInterval(refreshContainers, 1000)
