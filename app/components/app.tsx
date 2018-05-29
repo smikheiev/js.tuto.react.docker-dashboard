@@ -10,8 +10,8 @@ interface IAppState {
 }
 
 export class AppComponent extends React.Component<{}, IAppState> {
-  constructor () {
-    super({})
+  constructor (props) {
+    super(props)
 
     this.state = {
       runningContainers: [],
@@ -28,7 +28,6 @@ export class AppComponent extends React.Component<{}, IAppState> {
   }
 
   mapContainer (container: any): IContainerProps {
-    console.log(container)
     return {
       id: container.Id,
       name: _.chain(container.Names)
