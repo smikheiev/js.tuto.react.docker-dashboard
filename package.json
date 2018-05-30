@@ -7,7 +7,9 @@
     "start-dev": "concurrently \"nodemon server.js\" \"webpack --watch\""
   },
   "devDependencies": {
+    "@types/bootstrap": "^4.1.0",
     "@types/classnames": "^2.2.3",
+    "@types/jquery": "^3.3.2",
     "@types/lodash": "^4.14.109",
     "@types/react": "^16.3.14",
     "@types/react-dom": "^16.0.5",

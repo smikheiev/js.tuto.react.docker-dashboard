@@ -2,6 +2,8 @@ import * as React from 'react'
 import * as _ from 'lodash'
 import { IContainerProps } from './containerListItem'
 import { ContainerList } from './containerList'
+import { NewContainerModal } from './newContainerModal'
+import { ModalTrigger } from './modalTrigger'
 import socket from '../socket'
 
 interface IAppState {
@@ -10,7 +12,7 @@ interface IAppState {
 }
 
 export class AppComponent extends React.Component<{}, IAppState> {
-  constructor (props) {
+  constructor (props: any) {
     super(props)
 
     this.state = {
@@ -44,13 +46,21 @@ export class AppComponent extends React.Component<{}, IAppState> {
     socket.emit('containers.list')
   }
 
+  onRunImage (name: string) {
+    socket.emit('image.run', {name: name})
+  }
+
   render () {
     return (
       <div className='container'>
         <h1 className='page-header'>Docker Dashboard</h1>
 
+        <ModalTrigger modalId='newContainerModal' buttonText='New container'/>
+
         <ContainerList title='Running containers' containers={this.state.runningContainers}/>
         <ContainerList title='Stopped containers' containers={this.state.stoppedContainers}/>
+
+        <NewContainerModal id='newContainerModal' onRunImage={this.onRunImage}/>
       </div>
     )
   }
