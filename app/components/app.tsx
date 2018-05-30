@@ -27,6 +27,9 @@ export class AppComponent extends React.Component<{}, IAppState> {
         stoppedContainers: partitioned[1].map(this.mapContainer)
       })
     })
+    socket.on('image.error', (args: any) => {
+      alert(args.message.json.message)
+    })
   }
 
   mapContainer (container: any): IContainerProps {

@@ -43,6 +43,20 @@ io.on('connection', (socket) => {
       })
     }
   })
+  socket.on('image.run', (args) => {
+    const {name} = args
+    docker.createContainer({Image: name}, (err, container) => {
+      if (!err) {
+        container.start((err, data) => {
+          if (err) {
+            socket.emit('image.error', {message: err})
+          }
+        })
+      } else {
+        socket.emit('image.error', {message: err})
+      }
+    })
+  })
 })
 
 const refreshContainers = () => {
