@@ -91,4 +91,4 @@ const refreshContainers = async () => {
   }
 }
 
-setInterval(refreshContainers, 1000)
+setInterval(refreshContainers, 5000)
