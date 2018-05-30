@@ -43,6 +43,15 @@ io.on('connection', (socket) => {
       })
     }
   })
+  socket.on('container.remove', (args) => {
+    const {id} = args
+    const container = docker.getContainer(id)
+    container.stop((err, data) => {
+      container.remove((err, data) => {
+        refreshContainers()
+      })
+    })
+  })
   socket.on('image.run', (args) => {
     const {name} = args
     docker.createContainer({Image: name}, (err, container) => {

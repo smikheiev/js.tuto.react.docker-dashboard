@@ -23,10 +23,14 @@ export class ContainerListItem extends React.Component<IContainerProps, {}> {
     }
   }
 
+  onRemoveButtonClick () {
+    socket.emit('container.remove', {id: this.props.id})
+  }
+
   render () {
     const panelSubclass = this.isRunning() ? 'success' : 'default'
     const panelClasses = classNames('panel', `panel-${panelSubclass}`)
-    const buttonText = this.isRunning() ? 'Stop' : 'Start'
+    const actionButtonText = this.isRunning() ? 'Stop' : 'Start'
 
     return (
       <div className='col-sm-3'>
@@ -38,7 +42,10 @@ export class ContainerListItem extends React.Component<IContainerProps, {}> {
           </div>
           <div className='panel-footer'>
             <button className='btn btn-default' onClick={() => this.onActionButtonClick()}>
-              {buttonText}
+              {actionButtonText}
+            </button>
+            <button className='btn btn-danger' onClick={() => this.onRemoveButtonClick()}>
+              Remove
             </button>
           </div>
         </div>
