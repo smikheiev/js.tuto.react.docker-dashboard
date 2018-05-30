@@ -13,7 +13,7 @@ export class Modal extends React.Component<IModalProps, {}> {
   constructor (props: any) {
     super(props)
 
-    this.modalElementId = `#${this.modalElementId}`
+    this.modalElementId = `#${this.props.id}`
   }
 
   onPrimaryButtonClick () {
